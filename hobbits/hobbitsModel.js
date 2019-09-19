@@ -9,7 +9,16 @@ module.exports = {
 };
 
 async function insert(hobbit) {
-  return null;
+  return db('hobbits')
+   .insert(hobbit)
+   .then(([id]) => {
+     return db('hobbits')
+     .where({id: id})
+     .first()
+     .then( hobbit => hobbit)
+     .catch( err => err)
+   })
+   .catch( err => err)
 }
 
 async function update(id, changes) {
